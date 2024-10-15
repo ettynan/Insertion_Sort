@@ -3,12 +3,12 @@ plugins {
 }
 
 android {
-    namespace 'com.example.insertionsort'
+    namespace 'com.example.insertion_sort'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.example.insertionsort"
-        minSdk 24
+        applicationId "com.example.insertion_sort"
+        minSdk 34
         targetSdk 34
         versionCode 1
         versionName "1.0"
@@ -26,10 +26,8 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
-    lintOptions {
-        abortOnError false      // Do not stop the build on lint errors
-        warningsAsErrors false  // Show warnings as regular warnings, not errors
+    buildFeatures {
+        viewBinding true
     }
 }
 
@@ -37,6 +35,9 @@ dependencies {
 
     implementation libs.appcompat
     implementation libs.material
+    implementation libs.constraintlayout
+    implementation libs.navigation.fragment
+    implementation libs.navigation.ui
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core

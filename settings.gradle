@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "InsertionSort"
+rootProject.name = "Insertion_Sort"
 include ':app'
