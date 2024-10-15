@@ -1,4 +1,4 @@
-# InsertionSort Android App
+# Insertion_Sort Android App
 
 ## Overview
 This Android app implements the **Insertion Sort** algorithm to sort an array of integers between 0 and 9. The app reads input, processes the sorting algorithm, and outputs the result while displaying intermediate steps of the sorting process.
