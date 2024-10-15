@@ -7,8 +7,8 @@ The app runs until the user inputs 'quit' to exit. It is built with Java and use
 
 
 ## Collaboration Guide
-1. In your terminal, go to your working directory
-`cd somewhere`
+1. In your terminal, go to your working directory. <br>
+   `cd somewhere`
 2. Then clone the repo to your local pc
 `git clone https://github.com/ettynan/Insertion_Sort.git`
 3. Open Android Studio
