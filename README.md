@@ -20,3 +20,5 @@ The app runs until the user inputs 'quit' to exit. It is built with Java and use
 8. Ensure you do not make edits on the Main branch without informing others.
 9. Before attempting to merge into the main branch, ensure that you have committed and pushed all changes from your local repository.
 10. Open the GitHub repository webpage, locate the `Compare & Pull Request` button on your branch, click on it, and follow the steps to complete the merge.
+
+**Before merging, please ask Dalun or Kyle to review the changes.**
