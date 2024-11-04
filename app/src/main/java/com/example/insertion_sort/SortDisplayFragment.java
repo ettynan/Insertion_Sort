@@ -9,11 +9,11 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.example.insertion_sort.databinding.FragmentSecondBinding;
+import com.example.insertion_sort.databinding.FragmentSortDisplayBinding;
 
 public class SortDisplayFragment extends Fragment {
 
-    private FragmentSecondBinding binding;
+    private FragmentSortDisplayBinding binding;
 
     @Override
     public View onCreateView(
@@ -21,7 +21,7 @@ public class SortDisplayFragment extends Fragment {
             Bundle savedInstanceState
     ) {
 
-        binding = FragmentSecondBinding.inflate(inflater, container, false);
+        binding = FragmentSortDisplayBinding.inflate(inflater, container, false);
         return binding.getRoot();
 
     }
@@ -29,10 +29,10 @@ public class SortDisplayFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.buttonSecond.setOnClickListener(v ->
-                NavHostFragment.findNavController(SortDisplayFragment.this)
-                        .navigate(R.id.action_SecondFragment_to_FirstFragment)
-        );
+//        binding.buttonSecond.setOnClickListener(v ->
+//                NavHostFragment.findNavController(SortDisplayFragment.this)
+//                        .navigate(R.id.action_SecondFragment_to_FirstFragment)
+//        );
     }
 
     @Override
