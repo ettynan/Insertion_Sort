@@ -33,15 +33,22 @@ public class InputFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+
         // Set up button click listener
         binding.buttonSort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String inputText = binding.editTextArray.getText().toString().trim();
+                if (isInputValid(inputText)) {
+                    // Proceed with sorting logic here
+                    Toast.makeText(getActivity(), "Valid input, sort will begin: " + inputText, Toast.LENGTH_SHORT).show();
+                    // Call your sorting method here
+                } else {
+                    Toast.makeText(getActivity(), "Please enter a valid array of integers (0-9) with size between 3 and 8.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
-
 
     @Override
     public void onDestroyView() {
