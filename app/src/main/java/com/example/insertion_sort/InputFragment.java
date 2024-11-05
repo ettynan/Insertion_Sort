@@ -38,13 +38,6 @@ public class InputFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String inputText = binding.editTextArray.getText().toString().trim();
-                if (isInputValid(inputText)) {
-                    // Proceed with sorting logic here
-                    Toast.makeText(getActivity(), "Valid input: " + inputText, Toast.LENGTH_SHORT).show();
-                    // Call your sorting method here
-                } else {
-                    Toast.makeText(getActivity(), "Please enter a valid array of integers (0-9) with size between 3 and 8.", Toast.LENGTH_SHORT).show();
-                }
             }
         });
     }

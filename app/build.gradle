@@ -37,6 +37,7 @@ dependencies {
     implementation libs.constraintlayout
     implementation libs.navigation.fragment
     implementation libs.navigation.ui
+    implementation libs.fragment.testing
     testImplementation libs.junit
     testImplementation libs.mockito // Added 10/29/2024
     androidTestImplementation libs.ext.junit // Added 10/29/2024
