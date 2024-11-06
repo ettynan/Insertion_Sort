@@ -32,7 +32,6 @@ android {
 }
 
 dependencies {
-
     implementation libs.appcompat
     implementation libs.material
     implementation libs.constraintlayout
@@ -40,7 +39,7 @@ dependencies {
     implementation libs.navigation.ui
     implementation libs.fragment.testing
     testImplementation libs.junit
-    testImplementation libs.mockito.core // Added 10/29/2024
-    androidTestImplementation libs.ext.junit
-    androidTestImplementation libs.espresso.core
+    testImplementation libs.mockito // Added 10/29/2024
+    androidTestImplementation libs.ext.junit // Added 10/29/2024
+    androidTestImplementation libs.espresso.core // Added 10/29/2024
 }

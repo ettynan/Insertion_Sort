@@ -8,7 +8,7 @@
         android:id="@+id/inputFragment"
         android:name="com.example.insertion_sort.InputFragment"
         android:label="Input Fragment" />
-<!--        Added 10/29/2024-->
+    <!--        Added 10/29/2024-->
     <fragment
         android:id="@+id/sortDisplayFragment"
         android:name="com.example.insertion_sort.SortDisplayFragment"

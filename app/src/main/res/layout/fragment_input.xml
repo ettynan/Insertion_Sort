@@ -29,7 +29,7 @@
                 android:layout_margin="8dp"
                 android:maxWidth="300dp"
                 android:hint="@string/array_instruction_text"
-                android:inputType="number"
+                android:inputType="text"
                 android:padding="16dp"
                 android:autofillHints="username"
                 android:textColor="@android:color/black"
@@ -46,7 +46,7 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <!-- Sort button at the bottom of the screen -->
+    <!-- Sort button at the bottom of the screen  10/30/2024 -->
     <Button
         android:id="@+id/button_sort"
         android:layout_width="wrap_content"
