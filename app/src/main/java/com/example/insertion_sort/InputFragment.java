@@ -5,10 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+import android.view.inputmethod.EditorInfo;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-// Added 10/29/2024
 import androidx.annotation.Nullable;
 
 import com.example.insertion_sort.databinding.FragmentInputBinding;
@@ -48,6 +49,28 @@ public class InputFragment extends Fragment {
                     String errorMessage = getValidationErrorMessage(inputText);
                     Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        // Set up editor action listener for "Enter" key
+        binding.editTextArray.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, android.view.KeyEvent event) {
+                // Check if the action is "Enter" key press (IME_ACTION_DONE or ENTER)
+                if (actionId == EditorInfo.IME_ACTION_DONE || event != null && event.getKeyCode() == android.view.KeyEvent.KEYCODE_ENTER) {
+                    String inputText = binding.editTextArray.getText().toString().trim();
+
+                    // Check if the input is "quit"
+                    if (inputText.equalsIgnoreCase("quit")) {
+                        // Ensure the fragment is attached to an activity before calling finish
+                        if (getActivity() != null) {
+                            getActivity().finish();  // Close the activity
+                        }
+                    }
+                    // Return true to indicate that the action was handled
+                    return true;
+                }
+                return false;  // Let the default behavior handle other cases
             }
         });
     }
