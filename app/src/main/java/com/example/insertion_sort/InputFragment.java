@@ -41,10 +41,12 @@ public class InputFragment extends Fragment {
                 String inputText = binding.editTextArray.getText().toString().trim();
                 if (isInputValid(inputText)) {
                     // Proceed with sorting logic here
-                    Toast.makeText(getActivity(), "Valid input, sort will begin: " + inputText, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Valid input, array to sort: " + inputText, Toast.LENGTH_SHORT).show();
                     // Call your sorting method here
                 } else {
-                    Toast.makeText(getActivity(), "Please enter a valid array of integers (0-9) with size between 3 and 8.", Toast.LENGTH_SHORT).show();
+                    // Show specific error message if invalid
+                    String errorMessage = getValidationErrorMessage(inputText);
+                    Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -58,6 +60,9 @@ public class InputFragment extends Fragment {
 
     // Validate input format
     public boolean isInputValid(String inputText) {
+        // Trim the input first to remove any leading/trailing spaces
+        inputText = inputText.trim();
+
         // Check if the input is empty
         if (inputText.isEmpty()) return false;
 
@@ -81,6 +86,38 @@ public class InputFragment extends Fragment {
         }
         // Return true if all checks pass
         return true;
+    }
+
+    // Method to get a specific error message
+    public String getValidationErrorMessage(String inputText) {
+        // Trim the input to handle leading/trailing spaces
+        inputText = inputText.trim();
+
+        // Return an error message if input is empty
+        if (inputText.isEmpty()) {
+            return getString(R.string.error_invalid_input);
+        }
+
+        // Split the input into an array of strings based on spaces
+        String[] numbers = inputText.split(" ");
+
+        if (numbers.length < 3 || numbers.length > 8) {
+            return getString(R.string.error_size_mismatch);
+        }
+        // Loop through each element of the array to validate individual numbers
+        for (String num : numbers) {
+            try {
+                // Try to parse the string to an integer
+                int value = Integer.parseInt(num);
+                if (value < 0 || value > 9) {
+                    return getString(R.string.error_invalid_input);
+                }
+            } catch (NumberFormatException e) {
+                // Return the non-numeric error message if the number cannot be parsed
+                return getString(R.string.error_non_numeric);
+            }
+        }
+        return null; // No error message -  input is valid
     }
 
 }
