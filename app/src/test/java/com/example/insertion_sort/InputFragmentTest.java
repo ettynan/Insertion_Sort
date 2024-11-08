@@ -66,4 +66,65 @@ public class InputFragmentTest {
         // Assert that the input is invalid
         assertFalse(fragment.isInputValid(input));
     }
+
+    // Test for input with commas instead of spaces
+    @Test
+    public void testIsInputValid_InvalidInput_WithCommas() {
+        // Create an instance of InputFragment
+        InputFragment fragment = new InputFragment();
+        String input = "1,2,3,4";  // Uses commas instead of spaces
+        // Assert that the input is invalid
+        assertFalse(fragment.isInputValid(input));
+    }
+
+    // Test for input with multiple spaces between numbers
+    @Test
+    public void testIsInputValid_InvalidInput_WithMultipleSpaces() {
+        // Create an instance of InputFragment
+        InputFragment fragment = new InputFragment();
+        String input = "1  2 3 4";  // Extra spaces between numbers
+        // Assert that the input is invalid if you expect single spaces
+        assertFalse(fragment.isInputValid(input));
+    }
+
+    // Test for input with leading or trailing spaces
+    @Test
+    public void testIsInputValid_LeadingTrailingSpaces() {
+        // Create an instance of InputFragment
+        InputFragment fragment = new InputFragment();
+        String input = " 1 2 3 4 ";  // Leading and trailing spaces
+        // Assert that the input is valid after trimming the spaces
+        assertTrue(fragment.isInputValid(input));
+    }
+
+    // Test case for input with valid numbers but with leading zeros
+    @Test
+    public void testIsInputValid_ValidInput_WithLeadingZero() {
+        // Create an instance of InputFragment
+        InputFragment fragment = new InputFragment();
+        String input = "01 02 03";  // Leading zeros in numbers
+        // Assert that the input is valid if leading zeros are allowed
+        assertTrue(fragment.isInputValid(input));
+    }
+
+    // Test case for input with whitespace-only input
+    @Test
+    public void testIsInputValid_WhitespaceOnlyInput() {
+        // Create an instance of InputFragment
+        InputFragment fragment = new InputFragment();
+        String input = "    ";  // Only spaces
+        // Assert that the input is invalid (empty input after trimming)
+        assertFalse(fragment.isInputValid(input));
+    }
+
+    // Test case for input where numbers are in descending order
+    @Test
+    public void testIsInputValid_ValidInput_DescendingOrder() {
+        // Create an instance of InputFragment
+        InputFragment fragment = new InputFragment();
+        String input = "9 8 7 6 5";  // Valid numbers, descending order
+        // Assert that the input is valid
+        assertTrue(fragment.isInputValid(input));
+    }
+
 }
