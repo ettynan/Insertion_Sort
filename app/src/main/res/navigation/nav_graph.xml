@@ -2,15 +2,24 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
+    xmlns:tools="http://schemas.android.com/tools"
     app:startDestination="@id/inputFragment">
-    <!--    Added 10/29/2024-->
+    <!-- InputFragment -->
     <fragment
         android:id="@+id/inputFragment"
         android:name="com.example.insertion_sort.InputFragment"
-        android:label="Input Fragment" />
-    <!--        Added 10/29/2024-->
+        android:label="Input Fragment"
+        tools:layout="@layout/fragment_input">
+    <!-- Action to navigate to SortDisplayFragment -->
+        <action
+            android:id="@+id/action_inputFragment_to_sortDisplayFragment"
+            app:destination="@id/sortDisplayFragment" />
+    </fragment>
+    <!-- SortDisplayFragment -->
     <fragment
         android:id="@+id/sortDisplayFragment"
         android:name="com.example.insertion_sort.SortDisplayFragment"
-        android:label="Sort Display Fragment" />
+        android:label="Sort Display Fragment"
+        tools:layout="@layout/fragment_sort_display" />
+
 </navigation>

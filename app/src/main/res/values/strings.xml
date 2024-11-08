@@ -8,13 +8,15 @@
     <string name="sort_button">Sort</string>
     <string name="sort_button_description">This is the sort button</string>
     <string name="previous">Previous</string>
-    <string name="output">Sorted output will appear here</string>
+    <string name="output">Inputted array</string>
     <string name="output_placeholder">Sorted output will appear here</string>
     <string name="fab_description">Insertion sort will run</string> <!--Added 10/28/2024-->
     <string name="error_non_numeric">Invalid - numbers only! Please enter only numbers between 0 and 9.</string>
     <string name="error_invalid_input">Invalid input! Please enter numbers between 0 and 9.</string>
     <string name="error_size_mismatch">Input must be between 3 and 8 numbers.</string>
     <string name="sort_success">Array sorted successfully!</string>
+    <string name="no_input_array">No input array received.</string>
+
 
     <string name="lorem_ipsum">
 
