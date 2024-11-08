@@ -36,7 +36,8 @@ public class InputFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        // Set the user-friendly message in the TextView
+        binding.textViewMessage.setText(getString(R.string.values_to_sort));
 
         // Set up button click listener
         binding.buttonSort.setOnClickListener(new View.OnClickListener() {
@@ -58,8 +59,6 @@ public class InputFragment extends Fragment {
                     // Find the NavController and navigate to the next fragment
                     NavController navController = NavHostFragment.findNavController(InputFragment.this);
                     navController.navigate(R.id.action_inputFragment_to_sortDisplayFragment, bundle);
-
-                    //Toast.makeText(getActivity(), "Valid input, array to sort: " + inputText, Toast.LENGTH_SHORT).show();
                     // Call your sorting method here
                 } else {
                     // Show specific error message if invalid
@@ -90,6 +89,15 @@ public class InputFragment extends Fragment {
                 return false;  // Let the default behavior handle other cases
             }
         });
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        // Clear the input field using ViewBinding
+        if (binding != null) {
+            binding.editTextArray.setText(""); // Clears the EditText
+        }
     }
 
     @Override
