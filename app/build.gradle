@@ -6,6 +6,10 @@ android {
     namespace 'com.example.insertion_sort'
     compileSdk 34
 
+    viewBinding {
+        enabled = true  // Enables View Binding in the project
+    }
+
     defaultConfig {
         applicationId "com.example.insertion_sort"
         minSdk 34

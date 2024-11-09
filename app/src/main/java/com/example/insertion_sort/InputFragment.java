@@ -7,12 +7,15 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
-
+import androidx.navigation.NavController;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.annotation.Nullable;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.insertion_sort.databinding.FragmentInputBinding;
+
+import java.util.ArrayList;
 
 public class InputFragment extends Fragment {
 
@@ -33,7 +36,8 @@ public class InputFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        // Set the user-friendly message in the TextView
+        binding.textViewMessage.setText(getString(R.string.values_to_sort));
 
         // Set up button click listener
         binding.buttonSort.setOnClickListener(new View.OnClickListener() {
@@ -41,8 +45,20 @@ public class InputFragment extends Fragment {
             public void onClick(View v) {
                 String inputText = binding.editTextArray.getText().toString().trim();
                 if (isInputValid(inputText)) {
-                    // Proceed with sorting logic here
-                    Toast.makeText(getActivity(), "Valid input, array to sort: " + inputText, Toast.LENGTH_SHORT).show();
+                    //Convert input text to integer array
+                    int[] convertedArray = convertInputToArray(inputText);
+                    ArrayList<Integer> inputArray = new ArrayList<>();
+                    for (int num : convertedArray) {
+                        inputArray.add(num);
+                    }
+
+                    // Create a bundle to pass the array to the next fragment
+                    Bundle bundle = new Bundle();
+                    bundle.putIntegerArrayList("inputArray", inputArray);
+
+                    // Find the NavController and navigate to the next fragment
+                    NavController navController = NavHostFragment.findNavController(InputFragment.this);
+                    navController.navigate(R.id.action_inputFragment_to_sortDisplayFragment, bundle);
                     // Call your sorting method here
                 } else {
                     // Show specific error message if invalid
@@ -73,6 +89,15 @@ public class InputFragment extends Fragment {
                 return false;  // Let the default behavior handle other cases
             }
         });
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        // Clear the input field using ViewBinding
+        if (binding != null) {
+            binding.editTextArray.setText(""); // Clears the EditText
+        }
     }
 
     @Override
@@ -143,4 +168,13 @@ public class InputFragment extends Fragment {
         return null; // No error message -  input is valid
     }
 
+    // Convert input string to an integer array
+    private int[] convertInputToArray(String inputText) {
+        String[] numbers = inputText.split(" ");
+        int[] array = new int[numbers.length];
+        for (int i = 0; i < numbers.length; i++) {
+            array[i] = Integer.parseInt(numbers[i]);
+        }
+        return array;
+    }
 }
