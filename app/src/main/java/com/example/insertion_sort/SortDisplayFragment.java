@@ -73,7 +73,7 @@ public class SortDisplayFragment extends Fragment {
     }
 
     // Convert ArrayList to integer array
-    private int[] convertArrayListToArray(ArrayList<Integer> arrayList) {
+    protected int[] convertArrayListToArray(ArrayList<Integer> arrayList) {
         int[] array = new int[arrayList.size()];
         for (int i = 0; i < arrayList.size(); i++) {
             array[i] = arrayList.get(i);
@@ -82,7 +82,7 @@ public class SortDisplayFragment extends Fragment {
     }
 
     // Insertion Sort without built-in sorting functions/libraries
-    private void insertionSort(int[] array) {
+    protected void insertionSort(int[] array) {
         int n =array.length;
         for (int i = 1; i < n; i++) {
             int key = array[i];
