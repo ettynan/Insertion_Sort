@@ -17,6 +17,8 @@
     <string name="error_size_mismatch">Input must be between 3 and 8 numbers.</string>
     <string name="sort_success">Array sorted successfully!</string>
     <string name="no_input_array">No input array received.</string>
+    <string name="quit_button_label">Quit</string>
+
 
 
     <string name="lorem_ipsum">

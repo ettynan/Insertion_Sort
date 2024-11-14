@@ -45,6 +45,14 @@ public class SortDisplayFragment extends Fragment {
             binding.textViewInputArray.setText(getString(R.string.no_input_array));
         }
         displayArray(inputArray);
+
+        // Set up the Quit button functionality
+        binding.buttonQuit.setOnClickListener(v -> {
+            // Quit the app by finishing the activity
+            if (getActivity() != null) {
+                getActivity().finish();
+            }
+        });
     }
 
     // Display the array and sorted array
