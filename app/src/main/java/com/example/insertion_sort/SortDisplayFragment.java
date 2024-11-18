@@ -8,7 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import java.util.ArrayList;
 import java.util.List;
-import androidx.core.text.HtmlCompat;
 
 import com.example.insertion_sort.databinding.FragmentSortDisplayBinding;
 
@@ -30,21 +29,20 @@ public class SortDisplayFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-       // Retrieve the ArrayList passed from InputFragment
-        int[] inputArray = null;
-        if (getArguments() != null) {
-            ArrayList<Integer> arrayList = getArguments().getIntegerArrayList("inputArray");
-            if (arrayList != null) {
-                inputArray = convertArrayListToArray(arrayList);
-            } else {
-                // For the case where the "inputArray" is not in the arguments
-                binding.textViewInputArray.setText(getString(R.string.no_input_array));
-                return;
-            }
-        } else {
-            // Use the string resource for the default message
+        // Retrieve the ArrayList safely to avoid null warnings using ternary operator (? :)
+        ArrayList<Integer> inputList = getArguments() != null
+                ? getArguments().getIntegerArrayList("inputArray")
+                : null;
+
+        // Check if the inputList is null. If is null, display an error message and stop.
+        if (inputList == null) {
+            // Set the textView to show a "no input array" message defined in the string resources.
             binding.textViewInputArray.setText(getString(R.string.no_input_array));
+            return; // Exit the method since there is no valid input to process.
         }
+
+        // inputList is NOT null, so convert it to an int array.
+        int[] inputArray = convertArrayListToArray(inputList);
         displayArray(inputArray);
 
         // Set up the Quit button functionality
@@ -58,47 +56,24 @@ public class SortDisplayFragment extends Fragment {
 
     // Display the array and sorted array
     private void displayArray(int[] inputArray) {
-        if (inputArray == null) {
-            binding.textViewInputArray.setText(getString(R.string.no_input_array));
-            return;
-        }
-
         // Display the original array
         StringBuilder arrayString = new StringBuilder("Input Array: ");
         for (int num : inputArray) {
             arrayString.append(num).append(" ");  // Efficient concatenation with StringBuilder
         }
-        arrayString.append("<br>");
+        arrayString.append("\n");
 
         // Add the header for the sorting steps
-        arrayString.append(getString(R.string.sorting_header)).append("<br>");
+        arrayString.append(getString(R.string.sorting_header)).append("\n");
 
         // Perform insertion sort and append each step to the StringBuilder
         List<String> sortingSteps = insertionSort(inputArray);
-        for (int i = 0; i < sortingSteps.size(); i++) {
-            // Get the current sorting step and format it with the bolded number
-            String formattedStep = boldSortedNumberInStep(sortingSteps.get(i), i);
-            arrayString.append(formattedStep).append("<br>");
+        for (String step : sortingSteps) {
+            // Append sorting steps to the display string
+            arrayString.append(step).append("\n");
         }
-        // Use Html.fromHtml() to render the formatted text with bold numbers
-        binding.textViewInputArray.setText(HtmlCompat.fromHtml(arrayString.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY));
+        binding.textViewInputArray.setText(arrayString.toString());
     }
-
-    protected String boldSortedNumberInStep(String step, int indexToBold) {
-        // Split the step into individual strings (numbers) based on spaces
-        String[] splitStep = step.split(" ");
-        StringBuilder formattedStep = new StringBuilder();
-        for (int j = 0; j < splitStep.length; j++) {
-            // If reach the number to be bolded (based on the indexToBold parameter), apply the <b> HTML tag
-            if (j == indexToBold) {
-                formattedStep.append("<b>").append(splitStep[j]).append("</b>").append(" ");
-            } else {
-                formattedStep.append(splitStep[j]).append(" ");
-            }
-        }
-        return formattedStep.toString();
-    }
-
 
     // Convert ArrayList to integer array
     protected int[] convertArrayListToArray(ArrayList<Integer> arrayList) {
@@ -127,13 +102,8 @@ public class SortDisplayFragment extends Fragment {
 
             // Record the state of the array after each step
             StringBuilder step = new StringBuilder();
-            for (int k = 0; k < n; k++) {
-                if (k == i) {
-                    // Bold the number being sorted
-                    step.append("<b>").append(array[k]).append("</b>").append(" ");
-                } else {
-                    step.append(array[k]).append(" ");
-                }
+            for (int value : array) {
+                step.append(value).append(" ");
             }
             sortingSteps.add(step.toString());
         }
