@@ -4,10 +4,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import java.util.ArrayList;
+import java.util.List;
+import androidx.core.text.HtmlCompat;
 
 import com.example.insertion_sort.databinding.FragmentSortDisplayBinding;
 
@@ -67,18 +68,37 @@ public class SortDisplayFragment extends Fragment {
         for (int num : inputArray) {
             arrayString.append(num).append(" ");  // Efficient concatenation with StringBuilder
         }
-        binding.textViewInputArray.setText(arrayString.toString());
+        arrayString.append("<br>");
 
-        // Perform the Insertion Sort
-        insertionSort(inputArray);
+        // Add the header for the sorting steps
+        arrayString.append(getString(R.string.sorting_header)).append("<br>");
 
-        // Display sorted array using StringBuilder
-        StringBuilder sortedArrayString = new StringBuilder("Sorted Array: ");
-        for (int num : inputArray) {
-            sortedArrayString.append(num).append(" ");
+        // Perform insertion sort and append each step to the StringBuilder
+        List<String> sortingSteps = insertionSort(inputArray);
+        for (int i = 0; i < sortingSteps.size(); i++) {
+            // Get the current sorting step and format it with the bolded number
+            String formattedStep = boldSortedNumberInStep(sortingSteps.get(i), i);
+            arrayString.append(formattedStep).append("<br>");
         }
-        binding.textViewSortedArray.setText(sortedArrayString.toString());
+        // Use Html.fromHtml() to render the formatted text with bold numbers
+        binding.textViewInputArray.setText(HtmlCompat.fromHtml(arrayString.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY));
     }
+
+    protected String boldSortedNumberInStep(String step, int indexToBold) {
+        // Split the step into individual strings (numbers) based on spaces
+        String[] splitStep = step.split(" ");
+        StringBuilder formattedStep = new StringBuilder();
+        for (int j = 0; j < splitStep.length; j++) {
+            // If reach the number to be bolded (based on the indexToBold parameter), apply the <b> HTML tag
+            if (j == indexToBold) {
+                formattedStep.append("<b>").append(splitStep[j]).append("</b>").append(" ");
+            } else {
+                formattedStep.append(splitStep[j]).append(" ");
+            }
+        }
+        return formattedStep.toString();
+    }
+
 
     // Convert ArrayList to integer array
     protected int[] convertArrayListToArray(ArrayList<Integer> arrayList) {
@@ -90,8 +110,9 @@ public class SortDisplayFragment extends Fragment {
     }
 
     // Insertion Sort without built-in sorting functions/libraries
-    protected void insertionSort(int[] array) {
-        int n =array.length;
+    protected List<String> insertionSort(int[] array) {
+        List<String> sortingSteps = new ArrayList<>();
+        int n = array.length;
         for (int i = 1; i < n; i++) {
             int key = array[i];
             int j = i - 1;
@@ -103,7 +124,20 @@ public class SortDisplayFragment extends Fragment {
                 j = j - 1;
             }
             array[j + 1] = key;
+
+            // Record the state of the array after each step
+            StringBuilder step = new StringBuilder();
+            for (int k = 0; k < n; k++) {
+                if (k == i) {
+                    // Bold the number being sorted
+                    step.append("<b>").append(array[k]).append("</b>").append(" ");
+                } else {
+                    step.append(array[k]).append(" ");
+                }
+            }
+            sortingSteps.add(step.toString());
         }
+        return sortingSteps;
     }
 
     @Override
