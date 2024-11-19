@@ -28,25 +28,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="@string/output"
                 android:textSize="18sp"
                 android:textColor="@android:color/black"
-                android:gravity="center"
+                android:gravity="start"
                 android:layout_gravity="center_horizontal"
-                android:paddingBottom="16dp" />
+                android:paddingBottom="0dp" />
 
-            <!-- Display sorted array -->
+            <!-- Display sorting steps  -->
             <TextView
-                android:id="@+id/textViewSortedArray"
+                android:id="@+id/textViewSortedSteps"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="@string/sorted_output"
                 android:textSize="18sp"
                 android:textColor="@android:color/black"
-                android:gravity="center"
+                android:gravity="start"
                 android:layout_gravity="center_horizontal"
-                android:paddingBottom="16dp" />
+                android:paddingBottom="16dp"
+                android:lineSpacingExtra="4dp" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

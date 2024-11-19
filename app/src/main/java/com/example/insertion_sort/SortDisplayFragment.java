@@ -4,10 +4,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.example.insertion_sort.databinding.FragmentSortDisplayBinding;
 
@@ -29,21 +29,20 @@ public class SortDisplayFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-       // Retrieve the ArrayList passed from InputFragment
-        int[] inputArray = null;
-        if (getArguments() != null) {
-            ArrayList<Integer> arrayList = getArguments().getIntegerArrayList("inputArray");
-            if (arrayList != null) {
-                inputArray = convertArrayListToArray(arrayList);
-            } else {
-                // For the case where the "inputArray" is not in the arguments
-                binding.textViewInputArray.setText(getString(R.string.no_input_array));
-                return;
-            }
-        } else {
-            // Use the string resource for the default message
+        // Retrieve the ArrayList safely to avoid null warnings using ternary operator (? :)
+        ArrayList<Integer> inputList = getArguments() != null
+                ? getArguments().getIntegerArrayList("inputArray")
+                : null;
+
+        // Check if the inputList is null. If is null, display an error message and stop.
+        if (inputList == null) {
+            // Set the textView to show a "no input array" message defined in the string resources.
             binding.textViewInputArray.setText(getString(R.string.no_input_array));
+            return; // Exit the method since there is no valid input to process.
         }
+
+        // inputList is NOT null, so convert it to an int array.
+        int[] inputArray = convertArrayListToArray(inputList);
         displayArray(inputArray);
 
         // Set up the Quit button functionality
@@ -56,28 +55,24 @@ public class SortDisplayFragment extends Fragment {
     }
 
     // Display the array and sorted array
-    private void displayArray(int[] inputArray) {
-        if (inputArray == null) {
-            binding.textViewInputArray.setText(getString(R.string.no_input_array));
-            return;
-        }
-
+    protected void displayArray(int[] inputArray) {
         // Display the original array
         StringBuilder arrayString = new StringBuilder("Input Array: ");
         for (int num : inputArray) {
             arrayString.append(num).append(" ");  // Efficient concatenation with StringBuilder
         }
-        binding.textViewInputArray.setText(arrayString.toString());
+        arrayString.append("\n");
 
-        // Perform the Insertion Sort
-        insertionSort(inputArray);
+        // Add the header for the sorting steps
+        arrayString.append(getString(R.string.sorting_header)).append("\n");
 
-        // Display sorted array using StringBuilder
-        StringBuilder sortedArrayString = new StringBuilder("Sorted Array: ");
-        for (int num : inputArray) {
-            sortedArrayString.append(num).append(" ");
+        // Perform insertion sort and append each step to the StringBuilder
+        List<String> sortingSteps = insertionSort(inputArray);
+        for (String step : sortingSteps) {
+            // Append sorting steps to the display string
+            arrayString.append(step).append("\n");
         }
-        binding.textViewSortedArray.setText(sortedArrayString.toString());
+        binding.textViewInputArray.setText(arrayString.toString());
     }
 
     // Convert ArrayList to integer array
@@ -90,8 +85,9 @@ public class SortDisplayFragment extends Fragment {
     }
 
     // Insertion Sort without built-in sorting functions/libraries
-    protected void insertionSort(int[] array) {
-        int n =array.length;
+    protected List<String> insertionSort(int[] array) {
+        List<String> sortingSteps = new ArrayList<>();
+        int n = array.length;
         for (int i = 1; i < n; i++) {
             int key = array[i];
             int j = i - 1;
@@ -103,7 +99,15 @@ public class SortDisplayFragment extends Fragment {
                 j = j - 1;
             }
             array[j + 1] = key;
+
+            // Record the state of the array after each step
+            StringBuilder step = new StringBuilder();
+            for (int value : array) {
+                step.append(value).append(" ");
+            }
+            sortingSteps.add(step.toString());
         }
+        return sortingSteps;
     }
 
     @Override

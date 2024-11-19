@@ -143,7 +143,7 @@ public class InputFragment extends Fragment {
 
         // Return an error message if input is empty
         if (inputText.isEmpty()) {
-            return getString(R.string.error_invalid_input);
+            return getString(R.string.no_input_array);
         }
 
         // Split the input into an array of strings based on spaces
