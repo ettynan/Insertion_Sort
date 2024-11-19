@@ -55,7 +55,7 @@ public class SortDisplayFragment extends Fragment {
     }
 
     // Display the array and sorted array
-    private void displayArray(int[] inputArray) {
+    protected void displayArray(int[] inputArray) {
         // Display the original array
         StringBuilder arrayString = new StringBuilder("Input Array: ");
         for (int num : inputArray) {

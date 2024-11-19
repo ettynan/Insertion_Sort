@@ -37,6 +37,19 @@ public class SortDisplayFragmentTest {
     }
 
     @Test
+    public void testInsertionSortWithIdenticalElements() {
+        // Test to check sorting with all identical elements.
+        int[] unsortedArray = {5, 5, 5, 5, 5};
+        int[] expectedSortedArray = {5, 5, 5, 5, 5};
+
+        // Perform the insertion sort
+        fragment.insertionSort(unsortedArray);
+
+        // Assert that the array remains the same since all elements are identical
+        assertArrayEquals(expectedSortedArray, unsortedArray);
+    }
+
+    @Test
     public void testInsertionSortWithSingleElement() {
         // Test to check the behavior of insertionSort with a single-element array.
         // Expected result is the unchanged array with the single element.
@@ -47,6 +60,19 @@ public class SortDisplayFragmentTest {
         fragment.insertionSort(unsortedArray);
 
         // Assert that the single-element array remains unchanged
+        assertArrayEquals(expectedSortedArray, unsortedArray);
+    }
+
+    @Test
+    public void testInsertionSortWithAlreadySortedArray() {
+        // Test to check sorting with an already sorted array.
+        int[] unsortedArray = {1, 2, 3, 4, 5};
+        int[] expectedSortedArray = {1, 2, 3, 4, 5};
+
+        // Perform the insertion sort
+        fragment.insertionSort(unsortedArray);
+
+        // Assert that the array remains unchanged
         assertArrayEquals(expectedSortedArray, unsortedArray);
     }
 
@@ -84,4 +110,6 @@ public class SortDisplayFragmentTest {
         // Assert that the resulting array is empty as expected
         assertArrayEquals(expectedArray, resultArray);
     }
+
+
 }
