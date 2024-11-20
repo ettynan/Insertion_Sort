@@ -44,7 +44,7 @@
                 android:layout_margin="0dp"
                 android:maxWidth="400dp"
                 android:hint="@string/array_instruction_text"
-                android:textSize="25sp"
+                android:textSize="22sp"
                 android:inputType="textNoSuggestions|textVisiblePassword"
                 android:padding="10dp"
                 android:autofillHints="username"

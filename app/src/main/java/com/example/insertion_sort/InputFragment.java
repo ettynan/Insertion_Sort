@@ -94,21 +94,6 @@ public class InputFragment extends Fragment {
         });
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        // Clear the input field using ViewBinding
-        if (binding != null) {
-            binding.editTextArray.setText(""); // Clears the EditText
-        }
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
-
     // Validate input format
     public boolean isInputValid(String inputText) {
         // Trim the input first to remove any leading/trailing spaces
@@ -206,6 +191,21 @@ public class InputFragment extends Fragment {
         toast.setView(layout);  // Set the custom layout
         toast.setGravity(Gravity.CENTER, 0, 0);  // Center the toast on screen
         toast.show();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        // Clear the input field using ViewBinding
+        if (binding != null) {
+            binding.editTextArray.setText(""); // Clears the EditText
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 
 }
