@@ -1,6 +1,8 @@
 package com.example.insertion_sort;
 
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,8 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.example.insertion_sort.databinding.FragmentInputBinding;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class InputFragment extends Fragment {
 
@@ -63,17 +67,16 @@ public class InputFragment extends Fragment {
                 } else {
                     // Show specific error message if invalid
                     String errorMessage = getValidationErrorMessage(inputText);
-                    Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
-                }
+                    showToast(errorMessage);                }
             }
         });
 
         // Set up editor action listener for "Enter" key
         binding.editTextArray.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
-            public boolean onEditorAction(TextView v, int actionId, android.view.KeyEvent event) {
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 // Check if the action is "Enter" key press (IME_ACTION_DONE or ENTER)
-                if (actionId == EditorInfo.IME_ACTION_DONE || event != null && event.getKeyCode() == android.view.KeyEvent.KEYCODE_ENTER) {
+                if (actionId == EditorInfo.IME_ACTION_DONE || event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
                     String inputText = binding.editTextArray.getText().toString().trim();
 
                     // Check if the input is "quit"
@@ -146,11 +149,14 @@ public class InputFragment extends Fragment {
             return getString(R.string.no_input_array);
         }
 
+        // Create a Set to store error messages
+        Set<String> errorMessages = new HashSet<>();
+
         // Split the input into an array of strings based on spaces
         String[] numbers = inputText.split(" ");
 
         if (numbers.length < 3 || numbers.length > 8) {
-            return getString(R.string.error_size_mismatch);
+            errorMessages.add(getString(R.string.error_size_mismatch));
         }
         // Loop through each element of the array to validate individual numbers
         for (String num : numbers) {
@@ -158,14 +164,19 @@ public class InputFragment extends Fragment {
                 // Try to parse the string to an integer
                 int value = Integer.parseInt(num);
                 if (value < 0 || value > 9) {
-                    return getString(R.string.error_invalid_input);
+                    errorMessages.add(getString(R.string.error_out_of_range));
                 }
             } catch (NumberFormatException e) {
                 // Return the non-numeric error message if the number cannot be parsed
-                return getString(R.string.error_non_numeric);
+                errorMessages.add(getString(R.string.error_non_numeric));
             }
         }
-        return null; // No error message -  input is valid
+        // If there are no errors, return null
+        if (errorMessages.isEmpty()) {
+            return null;
+        }
+        // Combine the error messages and return them
+        return String.join("\n", errorMessages);
     }
 
     // Convert input string to an integer array
@@ -177,4 +188,24 @@ public class InputFragment extends Fragment {
         }
         return array;
     }
+
+    // Inflates the toast layout, sets the message text, and shows the custom message
+    protected void showToast(String message) {
+        // Inflate the custom layout
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.toast_message,
+                (getActivity() != null ? getActivity().findViewById(android.R.id.content) : null), false);
+
+        // Set the message in the TextView
+        TextView textView = layout.findViewById(R.id.toast_text);
+        textView.setText(message);
+
+        // Create and show the Toast
+        Toast toast = new Toast(getContext());
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(layout);  // Set the custom layout
+        toast.setGravity(Gravity.CENTER, 0, 0);  // Center the toast on screen
+        toast.show();
+    }
+
 }
