@@ -84,38 +84,46 @@ public class SortDisplayFragment extends Fragment {
         return array;
     }
 
-    // Insertion Sort without built-in sorting functions/libraries
+    // Sort with fixes for printing initial array and avoiding duplicate final sorted array print
     protected List<String> insertionSort(int[] array) {
         List<String> sortingSteps = new ArrayList<>();
         int n = array.length;
+
+        // Add the initial array state to sorting steps
+        StringBuilder initialArray = new StringBuilder();
+        for (int value : array) {
+            initialArray.append(value).append(" ");
+        }
+        sortingSteps.add(initialArray.toString().trim()); // Initial array printed
+
+        boolean isSorted; // Flag to check if array is sorted after each pass
+
         for (int i = 1; i < n; i++) {
             int key = array[i];
             int j = i - 1;
-            boolean isSorted = false;  // Flag to check if the array is sorted after the pass
-
+            isSorted = false;  // Reset the sorted flag for each pass
 
             // Move elements of array[0..i-1] that are greater than key
             // to one position ahead of their current position
             while (j >= 0 && array[j] > key) {
                 array[j + 1] = array[j];
                 j = j - 1;
-                isSorted = true;  // Array is no longer sorted, so set flag to false
+                isSorted = true;  // Array is no longer sorted, so set flag to true
             }
             array[j + 1] = key;
 
-
-            // Record the state of the array after each step
+            // Only add to sortingSteps if the array was modified
             if (isSorted) {
                 StringBuilder step = new StringBuilder();
                 for (int value : array) {
                     step.append(value).append(" ");
                 }
-                sortingSteps.add(step.toString());
+                sortingSteps.add(step.toString().trim());
             }
         }
         return sortingSteps;
     }
-
+//
     @Override
     public void onDestroyView() {
         super.onDestroyView();
