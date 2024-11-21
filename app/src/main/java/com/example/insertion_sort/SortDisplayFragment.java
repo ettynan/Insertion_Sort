@@ -91,21 +91,27 @@ public class SortDisplayFragment extends Fragment {
         for (int i = 1; i < n; i++) {
             int key = array[i];
             int j = i - 1;
+            boolean isSorted = false;  // Flag to check if the array is sorted after the pass
+
 
             // Move elements of array[0..i-1] that are greater than key
             // to one position ahead of their current position
             while (j >= 0 && array[j] > key) {
                 array[j + 1] = array[j];
                 j = j - 1;
+                isSorted = true;  // Array is no longer sorted, so set flag to false
             }
             array[j + 1] = key;
 
+
             // Record the state of the array after each step
-            StringBuilder step = new StringBuilder();
-            for (int value : array) {
-                step.append(value).append(" ");
+            if (isSorted) {
+                StringBuilder step = new StringBuilder();
+                for (int value : array) {
+                    step.append(value).append(" ");
+                }
+                sortingSteps.add(step.toString());
             }
-            sortingSteps.add(step.toString());
         }
         return sortingSteps;
     }

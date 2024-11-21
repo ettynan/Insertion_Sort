@@ -110,6 +110,4 @@ public class SortDisplayFragmentTest {
         // Assert that the resulting array is empty as expected
         assertArrayEquals(expectedArray, resultArray);
     }
-
-
 }

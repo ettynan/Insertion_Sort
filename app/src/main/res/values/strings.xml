@@ -4,24 +4,25 @@
     <!-- Strings used for fragments for navigation -->
     <string name="input_fragment_label">Input Fragment</string>
     <string name="sort_display_fragment_label">Sort Display Fragment</string>
-    <string name="array_instruction_text">Enter 3 to 8 ints sep with space.</string>
+    <string name="array_instruction_text">Enter 3 to 8 num separated by space.</string>
     <string name="sort_button">Sort</string>
     <string name="sort_button_description">This is the sort button</string>
     <string name="previous">Previous</string>
     <string name="output">Inputted array</string>
     <string name="sorting_header">Insertion Sort (Intermediate Steps)</string>
-    <string name="values_to_sort">Values to sort?</string>
+    <string name="values_to_sort">Values to sort? (Range: integers 0 to 9)</string>
     <string name="fab_description">Insertion sort will run</string> <!--Added 10/28/2024-->
-    <string name="error_non_numeric">Invalid - numbers only! Please enter only numbers between 0 and 9.</string>
-    <string name="error_invalid_input">Invalid input! Please enter numbers between 0 and 9.</string>
-    <string name="error_size_mismatch">Input must be between 3 and 8 numbers.</string>
+    <string name="error_non_numeric">Numbers only between 0 and 9.</string>
+    <string name="error_out_of_range">Out of range - Enter numbers between 0 and 9.</string>
+    <string name="error_size_mismatch">Array size must be between 3 and 8 numbers.</string>
     <string name="sort_success">Array sorted successfully!</string>
-    <string name="no_input_array">No input array received.</string>
+    <string name="no_input_array">No input received.</string>
     <string name="quit_button_label">Quit</string>
 
 
 
     <string name="lorem_ipsum">
 
-    </string>
+
+   </string>
 </resources>
