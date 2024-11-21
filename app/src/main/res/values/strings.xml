@@ -18,8 +18,7 @@
     <string name="sort_success">Array sorted successfully!</string>
     <string name="no_input_array">No input received.</string>
     <string name="quit_button_label">Quit</string>
-
-
+    <string name="already_sorted_message">The input array is already sorted</string>
 
     <string name="lorem_ipsum">
 

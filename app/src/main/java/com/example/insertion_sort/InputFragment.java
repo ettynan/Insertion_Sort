@@ -51,19 +51,22 @@ public class InputFragment extends Fragment {
                 if (isInputValid(inputText)) {
                     //Convert input text to integer array
                     int[] convertedArray = convertInputToArray(inputText);
-                    ArrayList<Integer> inputArray = new ArrayList<>();
-                    for (int num : convertedArray) {
-                        inputArray.add(num);
+                    if (isAlreadySorted(convertedArray)) {
+                        showToast(getString(R.string.already_sorted_message));
+                    } else {
+                        ArrayList<Integer> inputArray = new ArrayList<>();
+                        for (int num : convertedArray) {
+                            inputArray.add(num);
+                        }
+
+                        // Create a bundle to pass the array to the next fragment
+                        Bundle bundle = new Bundle();
+                        bundle.putIntegerArrayList("inputArray", inputArray);
+
+                        // Find the NavController and navigate to the next fragment
+                        NavController navController = NavHostFragment.findNavController(InputFragment.this);
+                        navController.navigate(R.id.action_inputFragment_to_sortDisplayFragment, bundle);
                     }
-
-                    // Create a bundle to pass the array to the next fragment
-                    Bundle bundle = new Bundle();
-                    bundle.putIntegerArrayList("inputArray", inputArray);
-
-                    // Find the NavController and navigate to the next fragment
-                    NavController navController = NavHostFragment.findNavController(InputFragment.this);
-                    navController.navigate(R.id.action_inputFragment_to_sortDisplayFragment, bundle);
-                    // Call your sorting method here
                 } else {
                     // Show specific error message if invalid
                     String errorMessage = getValidationErrorMessage(inputText);
@@ -174,6 +177,15 @@ public class InputFragment extends Fragment {
         return array;
     }
 
+    // Check if the array is sorted before trying to send to sort
+    protected boolean isAlreadySorted(int[] array) {
+        for (int i = 1; i < array.length; i++) {
+            if (array[i] < array[i - 1]) {
+                return false;
+            }
+        }
+        return true;
+    }
     // Inflates the toast layout, sets the message text, and shows the custom message
     protected void showToast(String message) {
         // Inflate the custom layout
